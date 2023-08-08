@@ -1,4 +1,4 @@
-/* Import necessary components and functions from react-bootstrap*/
+// Import necessary components and functions from react-bootstrap
 
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 import React, { FormEvent, useRef, useState } from "react";
@@ -8,19 +8,17 @@ import { Link } from "react-router-dom";
 import { NoteData } from "./App";
 import { Tag } from "./App";
 
-/* Import React module, FormEvent type, useRef, and useState from react */
+// Import CreatableReactSelect from the react-select library
 
-/* Import CreatableReactSelect from the react-select library */
+// Import Link component from react-router-dom
 
-/* Import Link component from react-router-dom */
-
-// Import Tag type from "./App"
+// Import the NoteData and Tag types from the App module
 
 
 
 // Define type for props that NoteForm component receives
 type NoteFormProps = {
-  onSubmit: (data: NoteData) => void;
+  onSubmit: (data: NoteData) => void; // Function to handle form submission
 };
 
 // Define the NoteForm component
@@ -34,12 +32,12 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
 
   // Define a function to handle form submission
   function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     
     // Call the onSubmit function with the form data
     onSubmit({
-      title: titleRef.current!.value,
-      markdown: markDownRef.current!.value,
+      title: titleRef.current!.value, // Get the value from the title input
+      markdown: markDownRef.current!.value, // Get the value from the markdown textarea
       tags: selectedTags || [], // Use selectedTags or an empty array if undefined
     });
   }
@@ -61,22 +59,23 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
               <Form.Label>Tags</Form.Label>
               {/* Use CreatableReactSelect for tag selection */}
               <CreatableReactSelect
-                value={
-                  selectedTags?.map((tag) => ({
-                    label: tag.label,
-                    value: tag.id,
-                  })) || []
-                }
-                onChange={(tags) => {
-                  setSelectedTags(
-                    tags.map((tag) => ({
-                      label: tag.label,
-                      id: tag.value,
-                    }))
-                  );
-                }}
-                isMulti
-              />
+  value={
+    selectedTags?.map((tag) => ({
+      label: tag.label, // Use the label of each selected tag
+      value: tag.id, // Use the ID of each selected tag
+    })) || [] // If selectedTags is undefined, use an empty array
+  }
+  onChange={(tags) => {
+    setSelectedTags(
+      tags.map((tag) => ({
+        label: tag.label, // Use the label of each tag from the input
+        id: tag.value, // Use the value of each tag from the input as its ID
+      }))
+    );
+  }}
+  isMulti // Enable multiple tag selection
+/>
+
             </Form.Group>
           </Col>
         </Row>
